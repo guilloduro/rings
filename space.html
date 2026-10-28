@@ -34,6 +34,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const A = window.Astronomy;
+const EARTH_TURN = 150;                                              // s per Earth turn on screen (decoupled from WARP)
 const WARP = 60;                                                     // Earth turns once every 24 min, inner ring laps in ~1.6 min
 const RE = 6378.137, MU = 398600.4418, J2 = 1.08262668e-3;
 const OMS = 2 * Math.PI / (365.2422 * 86400);
@@ -217,7 +218,8 @@ function place(t) {
   const raSun = Math.atan2(-s.z, s.x);                               // angle about the pole in three.js = right ascension
   rings.rotation.y = raSun + Math.PI / 2;
   // Earth's turn: Greenwich (map longitude 0, which SphereGeometry puts on +x) sits at the sidereal time.
-  surface.rotation.y = A.SiderealTime(d) * Math.PI / 12;
+  // Starts on the real sidereal angle, then turns faster than the clock so the motion is visible: one turn per EARTH_TURN s.
+  surface.rotation.y = A.SiderealTime(simDate(0)) * Math.PI / 12 + t * 2 * Math.PI / EARTH_TURN;
   clouds.rotation.y = surface.rotation.y + t * 0.002;
   clouds2.rotation.y = surface.rotation.y + 2.1 - t * 0.003;
 }
