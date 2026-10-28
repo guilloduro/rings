@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RINGS</title>
+<meta name="description" content="Data centers in space for superintelligence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;400&family=Rajdhani:wght@500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { height:100%; background:#000; color:#fff; overflow:hidden; }
+  body { font-family:"JetBrains Mono", ui-monospace, monospace; -webkit-font-smoothing:antialiased; }
+  /* The 3D scene fills the page; drag and zoom go to it, only the links sit on top. */
+  #scene { position:fixed; inset:0; width:100%; height:100%; border:0; }
+  .ui { position:fixed; inset:0; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; padding:28px 32px;
+    background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 40%); }
+  .top { display:flex; justify-content:center; align-items:center; }
+  /* Headline centred on the page; Contact sits bottom right on the same line. */
+  .bottom { position:relative; display:flex; justify-content:center; align-items:flex-end; }
+  .bottom .btn { position:absolute; right:0; bottom:10px; }
+  .mark { height:30px; width:auto; display:block; }   /* RINGS wordmark, same as the Live Web */
+  /* Headline set like a film title card: squared letters that match the wordmark, small, widely spaced, calm. */
+  h1 { font-family:"Rajdhani", sans-serif; font-weight:500; font-size:clamp(13px, 1.35vw, 19px);
+    line-height:1.4; letter-spacing:.42em; text-transform:uppercase; text-align:center; color:#cfcfcf;
+    padding-bottom:10px;
+    /* Brushed-silver shading, like the RINGS wordmark: bright top, darker bottom, a soft sheen across. */
+    background:linear-gradient(180deg, #f4f4f4 0%, #c9c9c9 45%, #8d8d8d 100%), linear-gradient(90deg, #9a9a9a, #e8e8e8 50%, #9a9a9a);
+    background-blend-mode:multiply; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .btn { pointer-events:auto; font-family:"Geist", sans-serif; color:#fff; text-decoration:none; font-size:12px; letter-spacing:.24em; text-transform:uppercase;
+    opacity:.85; transition:opacity .2s; }
+  .btn:hover { opacity:1; }
+  @media (max-width:900px) {
+    .ui { padding:20px 16px; }
+    .bottom { flex-direction:column; align-items:center; gap:18px; }
+    .bottom .btn { position:static; }
+  }
+</style>
+</head>
+<body>
+<iframe id="scene" src="space.html" title="Earth and the rings, drag to turn"></iframe>
+<div class="ui">
+  <div class="top">
+    <img class="mark" src="rings_wordmark.png" alt="RINGS">
+  </div>
+  <div class="bottom">
+    <h1>Data centers in space for superintelligence</h1>
+    <a class="btn" id="contact" target="_blank" rel="noopener">Contact</a>
+  </div>
+</div>
+<script>
+// Contact opens Gmail's compose window addressed to us (Gmail's own mailto handler URL); on phones the mail app opens.
+// The address is assembled here so it never sits in the page as plain text.
+const MAIL = ['ringstechnologies01', 'gmail.com'].join('@'), MAILTO = 'mailto:' + MAIL;   // no subject: the visitor writes their own
+document.getElementById('contact').href = matchMedia('(pointer: coarse)').matches
+  ? MAILTO
+  : 'https://mail.google.com/mail/?extsrc=mailto&url=' + encodeURIComponent(MAILTO);
+</script>
+</body>
+</html>
