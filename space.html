@@ -34,7 +34,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const A = window.Astronomy;
-const WARP = 90;                                                     // Earth turns once every 16 min, inner ring laps in ~64 s
+const WARP = 30;                                                     // Earth turns once every 48 min, inner ring laps in ~3 min
 const RE = 6378.137, MU = 398600.4418, J2 = 1.08262668e-3;
 const OMS = 2 * Math.PI / (365.2422 * 86400);
 const ssoInc = a => Math.acos(-2 * OMS * a * a / (3 * J2 * RE * RE * Math.sqrt(MU / a ** 3)));
@@ -57,7 +57,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true; controls.dampingFactor = 0.06;
 controls.enableZoom = false;                                        // turn only, no zoom
 controls.enablePan = false;
-controls.autoRotate = true; controls.autoRotateSpeed = 0.05;
+controls.autoRotate = true; controls.autoRotateSpeed = 0.02;
 controls.addEventListener('start', () => { controls.autoRotate = false; });
 
 scene.add(new THREE.AmbientLight(0xffffff, 0.015));
